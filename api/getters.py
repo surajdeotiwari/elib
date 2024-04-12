@@ -1,13 +1,37 @@
 from flask_restful import Resource
+from db.db import User,Books,Author
 class GetUserList(Resource):
+    # API endpoint /getUsers
     def get(self):
-        return "this returns the user records."
+        users = User.query.all()
+        user_list = list()
+        for user in users:
+            user_list.append({
+                user.id,
+                user.name
+            })
+        return {"users":user_list}
 class GetBookList(Resource):
+    # API endpoint /getBooks
     def get(self):
-        return "this returns all the books records"
+        books = Books.query().all()
+        book_list = list()
+        for book in books:
+            book_list.append({
+                book.id,
+                book.name
+            })
+        return {"users":book_list}
 class GetAuthorList(Resource):
     def get(self):
-        return "this returns all the authors lists"
+        authors = Author.query().all()
+        author_list = list()
+        for author in authors:
+            author_list.append({
+                author.id,
+                author.name
+            })
+        return {"authors":author_list}
 class GetBooksOfAuthor(Resource):
     def get(self):
         return "this returns specific author books"
