@@ -8,7 +8,7 @@ db = SQLAlchemy(model_class=Base)
 
 class User(db.Model):
     id = Column(Integer, primary_key=True)
-    photo_path = Column(String)
+    photo = Column(String)
     username = Column(String, unique=True)
     email = Column(String, unique=True)
     type = Column(String)
@@ -21,11 +21,15 @@ class Books(db.Model):
     name = Column(String)
     author = Column(String)
     publisher = Column(String)
+    assigned = Column(Integer,ForeignKey(User.id))
     publish_date = Column(DateTime)
+    photo = Column(String)
     file_path = Column(String)
     reservation = Column(Boolean)
     issue_date = Column(DateTime)
     deadline = Column(DateTime)
+    topic = Column(String)
+    bio = Column(String)
 
 class Author(db.Model):
     id = Column(Integer, primary_key=True)
