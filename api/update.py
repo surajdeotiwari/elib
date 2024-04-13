@@ -21,7 +21,7 @@ class ChangeAuthorName(Resource):
     def post(self):
         id = request.form['id']
         name = request.form['name']
-        author = db.get_or_404(author,id)
+        author = db.get_or_404(Author,id)
         author.name = name
         db.session.commit()
         return make_response("Author name has been edited",200)
