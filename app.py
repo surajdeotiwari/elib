@@ -2,6 +2,8 @@ from flask import Flask
 from routes.login import login_page
 from routes.register import register_page
 from routes.auth import auth
+from routes.home import home
+from routes.signup import signup_page
 from db.db import db
 from api.read import *
 from api.update import *
@@ -24,6 +26,8 @@ with app.app_context():
 app.register_blueprint(login_page)
 app.register_blueprint(register_page)
 app.register_blueprint(auth)
+app.register_blueprint(home)
+app.register_blueprint(signup_page)
 # Adding the api's
 # Getters
 api.add_resource(GetUserList, '/getUsers')
