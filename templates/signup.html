@@ -1,0 +1,40 @@
+<div class="container">
+    <span class="text-danger h3"><span class="text-secondary">Sign Up</span> as {{usertype}}</span>
+    <form class="needs-validation" method="post" validate action="/api/login">
+        <div class="mb-3">
+            <label for="uname" class="form-label fw-bold text-secondary">Username<span
+                    class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="uname" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="passwd" class="form-label fw-bold text-secondary">Password<span
+                    class="text-danger">*</span></label>
+            <input type="password" class="form-control" id="passwd" name="password" required>
+        </div>
+        <div class="mb-3">
+            <label for="mail" class="form-label fw-bold text-secondary">E-mail<span class="text-danger">*</span></label>
+            <input type="email" class="form-control" id="mail" name="e_mail" required>
+        </div>
+        <div class="mb-3">
+            <label for="usertype" class="form-label fw-bold text-secondary">Usertype</label>
+            <input type="text" class="form-control" id="usertype" name="type" value="{{usertype}}" disabled>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-danger">Submit</button>
+        </div>
+    </form>
+    <div>
+        <p class="text-dark">Are you new Here? If Yes then Please Register</p>
+        <a href="#" class="link-dark link-offset-3 link-underline-success link-underline-opacity-10">Signup</a>
+    </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="mb-3">
+        <span class="text-danger">{{ message }}</span>
+    </div>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>

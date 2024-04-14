@@ -1,7 +1,7 @@
 from flask import Blueprint
 from jinja2 import TemplateNotFound
 
-auth = Blueprint("auth",__name__,template_folder="templates",url_prefix="/auth")
+auth = Blueprint("authenticate",__name__,template_folder="templates",url_prefix="/auth")
 
 @auth.route('admin')
 def return_auth_response_admin_login():
