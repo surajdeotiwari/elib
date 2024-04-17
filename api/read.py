@@ -1,6 +1,7 @@
 from flask_restful import Resource
 from db.db import User, Books, Author
-from flask import request
+from flask import request,Response,jsonify
+import requests
 
 class GetUserList(Resource):
     # API endpoint /getUsers
@@ -20,9 +21,15 @@ class GetBookList(Resource):
         books = Books.query.all()
         book_list = list()
         for book in books:
+            author = Author.query.filter_by(id=book.author_id).first()
             book_list.append({
                 "id": book.id,
-                "name": book.name
+                "name": book.book_name,
+                "topic": book.topic,
+                "publisher": book.publisher,
+                "author": author.name,
+                "year":book.year,
+                "url":"http://127.0.0.1:5000/getPdfOfBook?id="+str(book.id)
             })
         return {"books": book_list}
 
@@ -34,7 +41,8 @@ class GetAuthorList(Resource):
         for author in authors:
             author_list.append({
                 "id": author.id,
-                "name": author.name
+                "name": author.name,
+                "bio":author.bio
             })
         return {"authors": author_list}
 
@@ -47,7 +55,8 @@ class GetBooksOfAuthor(Resource):
         for book in books:
             book_list.append({
                 "id": book.id,
-                "name": book.name
+                "name": book.name,
+                
             })
         return {"books": book_list}
 
@@ -63,6 +72,35 @@ class GetIssuedBookByUser(Resource):
                 "name": book.name
             })
         return {"books": book_list}
+
+class GetAuthorImage(Resource):
+    def get(self):
+        try:
+            id = request.args.get('id')
+            if not id:
+                return {"error": "Author ID is missing"}, 400
+
+            author = Author.query.filter_by(id=id).first()
+            if not author:
+                return {"error": "Author not found"}, 404
+
+            return Response(author.photo, mimetype=author.mimetype)
+        except Exception as e:
+            return {"error": str(e)}, 500
+class GetAuthorNameById(Resource):
+    def get(self):
+        try:
+            id = request.args.get('id')
+            if not id:
+                return {"error": "Author ID is missing"}, 400
+
+            author = Author.query.filter_by(id=id).first()
+            if not author:
+                return {"error": "Author not found"}, 404
+
+            return {"name":author.name}
+        except Exception as e:
+            return {"error": str(e)}, 500
 
 class GetNumberOfBookIssuedByUser(Resource):
     # API endpoint /getNumberOfBooksIssuedByUser
@@ -122,13 +160,13 @@ class GetStatisticsOfUser(Resource):
 class GetPdfOfBook(Resource):
     # API endpoint /getPdfOfBook
     def get(self):
-        name = request.args['bname']
-        book = Books.query.filter_by(name=name).all()
-        book_pdfs = list()
-        for pdfs in book:
-            book_pdfs.append(pdfs.pdf)
-        return {"Books": book_pdfs}
-
+        try:
+            id = request.args['id']
+            book = Books.query.filter_by(id=id).all()[0]
+            book_pdfs = book.book_pdf
+            return Response(book_pdfs,mimetype=book.book_mimetype)
+        except:
+            return "there has been an error"
 class GetBookByTopic(Resource):
     # API endpoint /getBookByTopic
     def get(self):

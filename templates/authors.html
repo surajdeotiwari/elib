@@ -8,6 +8,8 @@
         <table class="table table-bordered table-hover table-success">
             <th>Unique Id</th>
             <th>Name</th>
+            <th>Photo</th>
+            <th>Biography</th>
             {%for author in authors["authors"]%}
             <tr>
                 <td>
@@ -15,6 +17,12 @@
                 </td>
                 <td>
                     {{author.name}}
+                </td>
+                <td>
+                    <img src="http://localhost:5000/getAuthorPhoto?id={{author.id}}" alt="{{author.name}}" class="img-author">
+                </td>
+                <td>
+                    {{author.bio}}
                 </td>
             </tr>
             {%endfor%}

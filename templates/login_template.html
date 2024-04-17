@@ -1,11 +1,10 @@
 <div class="container">
-    <span class="text-danger h3"><span class="text-secondary">Sign in</span> as {{usertype}}</span>
+    <span class="text-danger h3"><span class="text-secondary">Sign In</span> as {{usertype}}</span>
     <form class="needs-validation" method="post" validate action="/api/login">
         <div class="mb-3">
             <label for="uname" class="form-label fw-bold text-secondary">Username<span
                     class="text-danger">*</span></label>
             <input type="text" class="form-control" id="uname" name="userName" required>
-            <!-- <div id="helpName" class="form" -->
         </div>
         <div class="mb-3">
             <label for="passwd" class="form-label fw-bold text-secondary">Password<span
@@ -22,8 +21,13 @@
     </form>
     <div>
         <p class="text-dark">Are you new Here? If Yes then Please Register</p>
-        <a href="#" class="link-dark link-offset-3 link-underline-success link-underline-opacity-10">Signup</a>
-    </div>
+        {%if usertype=='Admin'%}
+        <a href="{{url_for('signup.return_admin_signup_page')}}" class="link-dark link-offset-3 link-underline-success link-underline-opacity-10">Signup</a>
+        {%else%}
+        <a href="{{url_for('signup.return_user_signup_page')}}"
+            class="link-dark link-offset-3 link-underline-success link-underline-opacity-10">Signup</a> 
+        {%endif%}
+        </div>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     {% for message in messages %}

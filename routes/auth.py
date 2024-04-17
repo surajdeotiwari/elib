@@ -1,6 +1,6 @@
 from flask import Blueprint
 from jinja2 import TemplateNotFound
-
+from werkzeug.security import check_password_hash
 auth = Blueprint("authenticate",__name__,template_folder="templates",url_prefix="/auth")
 
 @auth.route('admin')

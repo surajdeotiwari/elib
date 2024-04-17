@@ -12,7 +12,9 @@
                 <th>Name</th>
                 <th>Book Type</th>
                 <th>Author</th>
-                <th>File</th>
+                <th>Publisher</th>
+                <th>Publishing Year</th>
+                <th>PDF (Download)</th>
                 {%for book in books["books"]%}
                 <tr>
                     <td>
@@ -20,6 +22,21 @@
                     </td>
                     <td>
                         {{book.name}}
+                    </td>
+                    <td>
+                        {{book.topic}}
+                    </td>
+                    <td>
+                        {{book.author}}
+                    </td>
+                    <td>
+                        {{book.publisher}}
+                    </td>
+                    <td>
+                        {{book.year}}
+                    </td>
+                    <td>
+                        <a href={{book.url}}+>Download</a>
                     </td>
                 </tr>
                 {%endfor%}

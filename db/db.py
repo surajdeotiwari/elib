@@ -1,46 +1,60 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Float
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey, Float, BLOB, LargeBinary, Date
+from sqlalchemy.orm import DeclarativeBase,relationship
+from flask_login import UserMixin
 class Base(DeclarativeBase):
     pass
 db = SQLAlchemy(model_class=Base)
 
-class User(db.Model):
-    id = Column(Integer, primary_key=True)
-    photo = Column(String, nullable=False)
-    username = Column(String, unique=True)
-    email = Column(String, unique=True)
-    type = Column(String, nullable=False)
-    phone = Column(Integer, unique=True)
-    fine = Column(Float, nullable=False)
 
-class Books(db.Model):
+class User(db.Model):
+    __tablename__ = 'users'
+
     id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    book_id = Column(String, nullable=False)
-    author = Column(String, nullable=False)
-    publisher = Column(String, nullable=False)
-    assigned = Column(Integer,ForeignKey(User.id),nullable=False)
-    publish_date = Column(DateTime, nullable=False)
-    photo = Column(String, nullable=False)
-    file_path = Column(String, nullable=False)
-    reservation = Column(Boolean, nullable=False)
-    issue_date = Column(DateTime, nullable=False)
-    deadline = Column(DateTime, nullable=False)
-    topic = Column(String, nullable=False)
-    bio = Column(String, nullable=False)
+    name = Column(String)
+    email = Column(String, unique=True)
+    password = Column(String)
+    user_type = Column(String)
+    phone = Column(Integer)
+    photo = Column(LargeBinary)
+    file = Column(String)
+    mimetype = Column(String)
 
 class Author(db.Model):
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    bio = Column(String, nullable=False)
-    author_id = Column(String, nullable=False, unique=True)
-    photo_path = Column(String, nullable=False)
+    __tablename__ = 'authors'
 
-class Logs(db.Model):
-    serial = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey(User.id))
-    login_time = Column(DateTime)
-    username = Column(String)
-    logout_time = Column(DateTime)
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    bio = Column(String)
+    photo = Column(LargeBinary)
+    file = Column(String)
+    mimetype = Column(String)
+
+class Books(db.Model):
+    __tablename__ = 'books'
+
+    id = Column(Integer, primary_key=True)
+    book_name = Column(String)
+    author_id = Column(Integer, ForeignKey('authors.id'))
+    author = relationship("Author")
+    book_pdf = Column(LargeBinary)
+    book_mimetype = Column(String)
+    publisher = Column(String)
+    year = Column(String)
+    topic = Column(String)
+    photo = Column(LargeBinary)
+    file = Column(String)
+    mimetype = Column(String)
+    abstract = Column(String)
+
+class Issue(db.Model):
+    __tablename__ = 'issues'
+
+    book_id = Column(Integer, ForeignKey('books.id'), primary_key=True)
+    book = relationship("Books")
+    assigned_to = Column(Integer, ForeignKey('users.id'))
+    user = relationship("User")
+    issue_date = Column(Date)
+    return_date = Column(Date)
+    deadline = Column(Date)
