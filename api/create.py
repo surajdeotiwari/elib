@@ -1,10 +1,10 @@
 from flask_restful import Resource
 from db.db import db, User, Author, Books, BLOB
-from flask import make_response,request
+from flask import make_response,request,redirect,url_for,flash
 from werkzeug.utils import secure_filename
 import base64
-from flask_wtf.file import FileField
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash 
+import time
 class CreateBook(Resource):
     def post(self):
         book_name = request.form["book_name"]
@@ -38,7 +38,7 @@ class CreateBook(Resource):
         db.session.add(book)
         db.session.commit()
 
-        return {"message": "Book created successfully"}, 201
+        return flash("Book Created Successfully")
 
 class CreateUser(Resource):
     def post(self):
@@ -63,7 +63,12 @@ class CreateUser(Resource):
         )
         db.session.add(user)
         db.session.commit()
-        return {"message": "User created successfully"}, 201
+        if user_type == "Admin":
+            flash("User Has Been Created, Now you are redirected to login page")
+            time.sleep(5)
+            return redirect(url_for('login.return_admin_login_page'))
+        else:
+            return redirect(url_for('login.return_user_login_page'))
 class CreateAuthor(Resource):
     def post(self):
         name = request.form["name"]
@@ -72,6 +77,25 @@ class CreateAuthor(Resource):
         file_path = secure_filename(file.filename)
         mimetype = file.mimetype
         author = Author(name=name,bio=bio,photo=file.read(),file=file_path,mimetype=mimetype)
+        print(file)
         db.session.add(author)
         db.session.commit()
         return {"message": "Author created Successfully"}, 201
+    
+class RemoveAuthor(Resource):
+    def post(self):
+        author = Author.query.filter_by(id=id).first()
+        db.session.delete(author)
+        db.session.commit()
+class RemoveBook(Resource):
+    def post(self):
+        book = Books.query.filter_by(id=id).first()
+        db.session.delete(book)
+        db.session.commit()
+
+class RemoveUser(Resource):
+    def post(self):
+        user = User.query.filter_by(id=id).first()
+        if user.user_type == 'User':
+            db.session.delete(user)
+            db.session.commit()

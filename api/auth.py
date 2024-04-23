@@ -6,15 +6,19 @@ import base64
 from flask_wtf.file import FileField
 from werkzeug.security import check_password_hash,generate_password_hash
 from flask_login import LoginManager
-login_manager = LoginManager()
-
+from flask_login import UserMixin,login_user,login_required,current_user,logout_user,LoginManager
+from flask import redirect, url_for
 class AuthUser(Resource):
     def post(self):
         email = request.form["email"]
         password = request.form["password"]
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password, password) and user.user_type=='User':
-            return {"message": True, "user": user.name}
+            login_user(user)
+            return redirect(url_for('base.home_render'))
+        elif user and check_password_hash(user.password, password) and user.user_type=='Admin':
+            login_user(user)
+            return redirect(url_for('base.home_render'))
         else:
             return {"message": "False"}, 400
 class AuthAdmin(Resource):
@@ -23,6 +27,6 @@ class AuthAdmin(Resource):
         password = request.form["password"]
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password, password) and user.user_type=='Admin':
-            return {"message": True, "user": user.name}, 200
+            return redirect(url_for('base.home_render'))
         else:
             return {"message": False}, 400

@@ -2,7 +2,16 @@
     <html lang="en">
 
     {% include 'headers.html' %}
-
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="mb-3">
+        <span class="text-danger">{{ message }}</span>
+    </div>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     <body>
         {%include 'navbar.html'%}
         <div class="container">
@@ -43,5 +52,5 @@
             </table>
         </div>
     </body>
-
+{%include 'footer.html'%}
     </html>

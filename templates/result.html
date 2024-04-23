@@ -1,0 +1,51 @@
+{%include 'headers.html'%}
+{%include 'navbar.html'%}
+<div class="container">
+
+    <span class="h3">Book</span>
+    <table class="table table-bordered table-hover table-success">
+        <tr>
+            <th>Book Id</th>
+            <th>Name</th>
+            <th>Book Type</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Publishing Year</th>
+            <th>PDF (Download)</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td>{{ book.book_name }}</td>
+            <td>{{ book.topic }}</td>
+            <td>{{ book.author.name }}</td>
+            <td>{{ book.publisher }}</td>
+            <td>{{ book.year }}</td>
+            <td><a href="http://127.0.0.1:5000/getPdfOfBook?id={{ book.id }}">Download</a></td>
+        </tr>
+        {%endfor%}
+    </table>
+    <span class="h3">Author</span>
+    <table class="table table-bordered table-hover table-success">
+        <th>Unique Id</th>
+        <th>Name</th>
+        <th>Photo</th>
+        <th>Biography</th>
+        {%for author in authors%}
+        <tr>
+            <td>
+                {{author.id}}
+            </td>
+            <td>
+                {{author.name}}
+            </td>
+            <td>
+                <img src="http://localhost:5000/getAuthorPhoto?id={{author.id}}" alt="{{author.name}}" class="img-author">
+            </td>
+            <td>
+                {{author.bio}}
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+</div>

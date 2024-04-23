@@ -1,8 +1,8 @@
 from flask_restful import Resource
 from db.db import User, Books, Author
-from flask import request,Response,jsonify
+from flask import request,Response,jsonify,flash,redirect,url_for
 import requests
-
+from flask_login import login_required,current_user
 class GetUserList(Resource):
     # API endpoint /getUsers
     def get(self):
@@ -22,12 +22,16 @@ class GetBookList(Resource):
         book_list = list()
         for book in books:
             author = Author.query.filter_by(id=book.author_id).first()
+            if author:
+                name = author.name
+            else:
+                name = "Anonymous"
             book_list.append({
                 "id": book.id,
                 "name": book.book_name,
                 "topic": book.topic,
                 "publisher": book.publisher,
-                "author": author.name,
+                "author": name,
                 "year":book.year,
                 "url":"http://127.0.0.1:5000/getPdfOfBook?id="+str(book.id)
             })
@@ -160,13 +164,13 @@ class GetStatisticsOfUser(Resource):
 class GetPdfOfBook(Resource):
     # API endpoint /getPdfOfBook
     def get(self):
-        try:
+        if not current_user.is_authenticated:
+            return redirect(url_for("login.return_user_login_page"))
+        else:
             id = request.args['id']
             book = Books.query.filter_by(id=id).all()[0]
             book_pdfs = book.book_pdf
             return Response(book_pdfs,mimetype=book.book_mimetype)
-        except:
-            return "there has been an error"
 class GetBookByTopic(Resource):
     # API endpoint /getBookByTopic
     def get(self):

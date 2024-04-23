@@ -1,33 +1,5 @@
 <div class="container">
-    <span class="text-danger h3"><span class="text-secondary">Sign In</span> as {{usertype}}</span>
-    <form class="needs-validation" method="post" validate action="/api/login">
-        <div class="mb-3">
-            <label for="uname" class="form-label fw-bold text-secondary">Username<span
-                    class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="uname" name="userName" required>
-        </div>
-        <div class="mb-3">
-            <label for="passwd" class="form-label fw-bold text-secondary">Password<span
-                    class="text-danger">*</span></label>
-            <input type="password" class="form-control" id="passwd" name="passwd" required>
-        </div>
-        <div class="mb-3 form-check">
-            <input class="form-check-input" type="checkbox" name="remember" id="remember">
-            <label class="form-check-label text-success" for="remember">Remember me</label>
-        </div>
-        <div class="mb-3">
-            <button type="submit" class="btn btn-danger">Submit</button>
-        </div>
-    </form>
-    <div>
-        <p class="text-dark">Are you new Here? If Yes then Please Register</p>
-        {%if usertype=='Admin'%}
-        <a href="{{url_for('signup.return_admin_signup_page')}}" class="link-dark link-offset-3 link-underline-success link-underline-opacity-10">Signup</a>
-        {%else%}
-        <a href="{{url_for('signup.return_user_signup_page')}}"
-            class="link-dark link-offset-3 link-underline-success link-underline-opacity-10">Signup</a> 
-        {%endif%}
-        </div>
+    <h2>Sign In</h2>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     {% for message in messages %}
@@ -38,4 +10,26 @@
     </ul>
     {% endif %}
     {% endwith %}
+    <form method="post" action="/authUser">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:<span class="text-danger">*</span></label>
+            <input type="email" class="form-control" id="email" name="email" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please enter a valid email.</div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:<span class="text-danger">*</span></label>
+            <input type="password" class="form-control" id="password" name="password" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please enter in a required range.</div>
+        </div>
+        <button type="submit" class="btn btn-danger">Sign In</button>
+    </form>
+        <p class="text-info">Are you new Here? If Yes then Please Register</p>
+        {%if usertype=='Admin'%}
+        <a href="{{url_for('signup.return_admin_signup_page')}}" class="link-dark link-offset-3 link-underline-success link-underline-opacity-10">Signup</a>
+        {%else%}
+        <a href="{{url_for('signup.return_user_signup_page')}}"
+            class="link-dark link-offset-3 link-underline-success link-underline-opacity-10">Signup</a> 
+        {%endif%}
+        </div>
+
 </div>

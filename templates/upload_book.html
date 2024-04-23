@@ -1,0 +1,50 @@
+{% include 'headers.html' %}
+{% include 'navbar.html' %}
+<div class="container">
+
+    <span class="h3">Create a New Book</span>
+    <form action="http://localhost:5000/createBook" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="book_name" class="form-label">Book Name:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="book_name" name="book_name" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please enter a book name.</div>
+        </div>
+        <div class="mb-3">
+            <label for="author_id" class="form-label">Author Id:<span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="author_id" name="author_id" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please enter a id.</div>
+        </div>
+        <div class="mb-3">
+            <label for="book_pdf" class="form-label">Book File:<span class="text-danger">*</span></label>
+            <input type="file" class="form-control" id="book_pdf" name="book_pdf" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please Enter File in Right Format: </div>
+        </div>
+        <div class="mb-3">
+            <label for="publisher" class="form-label">Publisher Name:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="publisher" name="publisher" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please nice publisher name: </div>
+        </div>
+        <div class="mb-3">
+            <label for="year" class="form-label">Year:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="year" name="year" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please nice Year: </div>
+        </div>
+        <div class="mb-3">
+            <label for="topic" class="form-label">Topic:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="topic" name="topic" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please correct topic name: </div>
+        </div>
+    
+        <div class="mb-3">
+            <label for="photo" class="form-label">Photo:<span class="text-danger">*</span></label>
+            <input type="file" class="form-control" id="photo" name="photo">
+            <div class="invalid-feedback">Please give correct photo: </div>
+        </div>
+    
+        <label for="abstract" class="form-label">Abstract:<span class="text-danger">*</span></label><br>
+        <textarea id="abstract" name="abstract" rows="4" cols="50"></textarea><br><br>
+    
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>

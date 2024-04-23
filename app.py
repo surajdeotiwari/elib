@@ -18,13 +18,18 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from dotenv import load_dotenv 
 import os
+from flask_login import LoginManager
 from flask_bcrypt import Bcrypt 
 # from api.setters import 
 app = Flask(__name__) 
 load_dotenv()
 # API intialization
 api = Api(app)
-
+login_manager = LoginManager(app)
+login_manager.init_app(app)
+@login_manager.user_loader
+def load_user(id):
+    return User.query.get(id)
 # Database Initialization
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URI")
 app.secret_key = os.getenv("SECRET_KEY")
@@ -61,7 +66,7 @@ api.add_resource(GetPdfOfBook, '/getPdfOfBook')
 api.add_resource(GetBookByTopic, '/getBookByTopic')
 api.add_resource(GetBookInformation, '/getBookInformation')
 # Setters
-api.add_resource(ChangeUserName, '/changeUserName')
+api.add_resource(ChangePassword, '/changePassword')
 api.add_resource(ChangeBookName, '/changeBookName')
 api.add_resource(ChangeAuthorName, '/changeAuthorName')
 # creators
@@ -75,5 +80,6 @@ api.add_resource(DeleteAuthor, '/deleteAuthor')
 # Middlewares
 api.add_resource(AuthUser, '/authUser')
 api.add_resource(AuthAdmin, '/authAdmin')
+
 if __name__ == '__main__':
     app.run(debug=True)

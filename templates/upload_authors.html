@@ -1,0 +1,24 @@
+{% include 'headers.html' %}
+{% include 'navbar.html' %}
+<div class="container">
+    <span class="h3">Add Author</span>
+    <form action="http://localhost:5000/createAuthor" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="name" class="form-label">Author Name:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="name" name="name" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please enter a valid author name.</div>
+        </div>
+        <div class="mb-3">
+            <label for="bio" class="form-label">Bio :<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="bio" name="bio" required minlength="2" maxlength="200">
+            <div class="invalid-feedback">Please enter a valid bio.</div>
+        </div>
+        <div class="mb-3">
+            <label for="photo" class="form-label">Photo:<span class="text-danger">*</span></label>
+            <input type="file" class="form-control" id="photo" name="photo" required>
+            <div class="invalid-feedback">Please Enter File in Right Format: </div>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>

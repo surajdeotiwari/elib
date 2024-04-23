@@ -20,7 +20,14 @@ class User(db.Model):
     photo = Column(LargeBinary)
     file = Column(String)
     mimetype = Column(String)
-
+    is_active = Column(db.Boolean, default=True)
+    is_authenticated = Column(db.Boolean, default=True)
+    def is_active(self):
+        return self.is_active
+    def get_id(self):
+        return self.id
+    def is_authenticated(self):
+        return self.is_authenticated
 class Author(db.Model):
     __tablename__ = 'authors'
 
