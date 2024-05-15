@@ -1,0 +1,24 @@
+{% include 'headers.html' %}
+
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        {% include 'flash.html' %}
+        <p class="h3">Add Section</p>
+        <form action="http://localhost:5000/createSection" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="name" class="form-label">Section Name:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="name" name="name" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please enter a valid section name.</div>
+        </div>
+        <label for="description" class="form-label">Description:<span class="text-danger">*</span></label><br>
+        <textarea id="description" name="description" rows="4" cols="50" class="form-control rounded border mb-3"></textarea><br><br>
+        <input type="submit" class="btn btn-primary" value="Submit">
+        </form>
+    </div>
+</body>
+<footer>
+    {% include 'footer.html' %}
+</footer>
+
+</html>

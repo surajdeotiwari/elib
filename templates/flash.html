@@ -1,0 +1,12 @@
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="alert alert-danger d-flex justify-content-between align-items-center">
+    <span class="">
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+    </span>
+    <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+{% endwith %}

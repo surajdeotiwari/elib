@@ -1,0 +1,33 @@
+{% include 'headers.html' %}
+{% include 'navbar.html' %}
+<div class="container">
+    <span class="h3">Change Author Information</span>
+    {%include 'flash.html'%}
+    <form action="http://localhost:5000/changeAuthor" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="id" class="my-1 mr-2">Author Name:<span class="text-danger">*</span></label>
+            <select class="custom-select my-1 mr-sm-2" id="id" name="id"> <!-- Added name attribute -->
+                <option value="" selected>Choose Author Name</option>
+                {%for author in authors["authors"]%}
+                <option value="{{ author.id }}">{{ author.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Author Name:<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="name" name="name" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please nice author name: </div>
+        </div>
+        <div class="mb-3">
+            <label for="bio" class="form-label">Bio:<span class="text-danger">*</span></label><br>
+            <textarea id="bio" name="bio" rows="4" cols="50" class="form-control rounded border mb-3"></textarea><br><br>
+        </div>
+        <div class="mb-3">
+            <label for="photo" class="form-label">Photo:<span class="text-danger">*</span></label>
+            <input type="file" class="form-control" id="photo" name="photo">
+            <div class="invalid-feedback">Please give correct photo: </div>
+        </div>
+        <input type="submit" class="btn btn-danger" value="Submit">
+    </form>
+</div>
+</body>

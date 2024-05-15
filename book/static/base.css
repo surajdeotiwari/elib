@@ -1,0 +1,26 @@
+.logo{
+    height: 60px;
+    width: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.nav{
+    position: fixed;
+    overflow: auto;
+}
+.img-change{
+    height: 80%;
+    width: 80%;
+}
+.img-author{
+    width: 300px;
+    height: 200px;
+}
+#footer{
+    text-align: center;
+    position: fixed;
+    /* left:0; */
+    bottom: 0;
+    width: 100%;
+    color: aliceblue;
+}

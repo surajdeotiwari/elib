@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'headers.html' %}
+
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        {% include 'search.html' %}
+        {% include 'flash.html' %}
+        {% if current_user.is_authenticated %}
+        {% if books|length > 0 %}
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Book Type</th>
+                    <th>Publisher</th>
+                    <th>Publishing Year</th>
+                    <th>PDF (Download)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td class="text-primary">{{ book.name }}</td>
+                    <td>{{ book.topic }}</td>
+                    <td>{{ book.publisher }}</td>
+                    <td>{{ book.year }}</td>
+                    <td>
+                        <a href="{{ book.url }}" class="btn btn-primary" target="_blank">Download</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="container alert alert-warning">
+            <span class="text-dark">There are no books available right now.</span>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="container alert alert-danger">
+            <span class="text-dark">To see books in the application, you need to sign in.</span>
+        </div>
+        {% endif %}
+    </div>
+    {% include 'footer.html' %}
+</body>
+
+</html>

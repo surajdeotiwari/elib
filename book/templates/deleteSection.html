@@ -1,0 +1,33 @@
+{% include 'headers.html' %}
+
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        {% include 'flash.html' %}
+        <p class="h3">Delete Section</p>
+        <form action="http://localhost:5000/deleteSection" class="form-inline" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <div>
+                    <label for="id" class="my-1 mr-2">Section Name:<span class="text-danger">*</span></label>
+                    <select class="custom-select my-1 mr-sm-2" id="id" name="id"> <!-- Added name attribute -->
+                        <option selected>Choose Section Name</option>
+                        {% for section in sections['sections'] %}
+                        <option value="{{ section.id }}">{{ section.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <label for="description" class="form-label">Reason for Deletion:<span
+                    class="text-danger"></span></label><br>
+            <textarea id="description" name="description" rows="4" cols="50"
+                class="form-control rounded border mb-3"></textarea><br><br>
+            <input type="submit" class="btn btn-primary" value="Submit">
+        </form>
+
+    </div>
+</body>
+<footer>
+    {% include 'footer.html' %}
+</footer>
+
+</html>

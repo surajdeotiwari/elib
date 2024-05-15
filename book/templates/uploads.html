@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Creation Form</title>
+</head>
+
+<body>
+    <h1>Create a New Book</h1>
+    <form action="http://localhost:5000/createBook" method="post" enctype="multipart/form-data">
+        <label for="book_name">Book Name:</label><br>
+        <input type="text" id="book_name" name="book_name"><br><br>
+        
+        <label for="author_id">Author ID:</label><br>
+        <input type="text" id="author_id" name="author_id"><br><br>
+        
+        <label for="book_pdf">Book PDF:</label><br>
+        <input type="file" id="book_pdf" name="book_pdf"><br><br>
+        
+        <label for="publisher">Publisher:</label><br>
+        <input type="text" id="publisher" name="publisher"><br><br>
+        
+        <label for="year">Year:</label><br>
+        <input type="text" id="year" name="year"><br><br>
+        
+        <label for="topic">Topic:</label><br>
+        <input type="text" id="topic" name="topic"><br><br>
+        
+        <label for="photo">Photo:</label><br>
+        <input type="file" id="photo" name="photo"><br><br>
+        
+        <label for="abstract">Abstract:</label><br>
+        <textarea id="abstract" name="abstract" rows="4" cols="50"></textarea><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+{%include 'footer.html'%}
+</html>

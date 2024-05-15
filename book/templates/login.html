@@ -1,0 +1,27 @@
+{% include 'headers.html' %}
+
+<body>
+    {%include 'navbar.html'%}
+    <div class="container d-flex align-items-center">
+        <div class="row justify-content-center">
+            <div class="col text-center">
+                <a href="{{url_for('login.return_admin_login_page')}}" class="nav-link">
+                    <img src="../static/admin-elib.png" alt="admin-login" class="img-thumbnail img-fluid img-change">
+                </a>
+                <span class="h3">
+                    Admin Login/Register
+                </span>
+            </div>
+            <div class="col text-center">
+                <a href="{{url_for("login.return_user_login_page")}}">
+                    <img src="../static/user-elib.png" alt="user-login" class="img-thumbnail img-fluid img-change">
+                </a>
+                <p class="h3">
+                    User Login/Register
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

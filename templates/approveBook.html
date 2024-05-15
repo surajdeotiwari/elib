@@ -1,0 +1,52 @@
+{% include 'headers.html' %}
+
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        {% include 'flash.html' %}
+        <h3 class="mb-4">Approve Book Requests</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Book Name</th>
+                        <th>Username</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in reqs %}
+                    {% if req.status == "Not Approved"%}
+                    <tr>
+                        <td>{{ req.book_name }}</td>
+                        <td>{{ req.username }}</td>
+                        <td>
+                            <form action="http://localhost:5000/bookapprove" method="post">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="approval"
+                                        id="approve-{{ loop.index }}" value="Approve">
+                                    <label class="form-check-label" for="approve-{{ loop.index }}">Approve</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="approval"
+                                        id="reject-{{ loop.index }}" value="Reject">
+                                    <label class="form-check-label" for="reject-{{ loop.index }}">Reject</label>
+                                </div>
+                                <input type="hidden" name="book_id" value="{{ req.book_id }}">
+                                <input type="hidden" name="user_id" value="{{ req.user_id }}">
+                                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {%endif%}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer>
+        {% include 'footer.html' %}
+    </footer>
+</body>
+
+</html>

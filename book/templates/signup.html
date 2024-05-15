@@ -1,0 +1,41 @@
+<div class="container">
+    <h2 class="text-danger">Sign Up as {{ usertype }}</h2>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="mt-3">
+        {% for message in messages %}
+        <div class="alert alert-danger" role="alert">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <form class="needs-validation" method="post" action="/createUser" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="name" name="name" required minlength="2" maxlength="50">
+            <div class="invalid-feedback">Please enter a valid name.</div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
+            <input type="email" class="form-control" id="email" name="email" required>
+            <div class="invalid-feedback">Please enter a valid email address.</div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password<span class="text-danger">*</span></label>
+            <input type="password" class="form-control" id="password" name="password" required minlength="6">
+            <div class="invalid-feedback">Password must be at least 6 characters long.</div>
+        </div>
+        <input type="hidden" id="user_type" name="user_type" value="{{ usertype }}">
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone<span class="text-danger">*</span></label>
+            <input type="tel" class="form-control" id="phone" name="phone" required pattern="[0-9]{10}">
+            <div class="invalid-feedback">Please enter a valid 10-digit phone number.</div>
+        </div>
+        <div class="mb-3">
+            <label for="photo" class="form-label">Photo<span class="text-danger">*</span></label>
+            <input type="file" class="form-control" id="photo" name="photo" required accept="image/*">
+            <div class="invalid-feedback">Please upload a photo.</div>
+        </div>
+        <button type="submit" class="btn btn-danger">Submit</button>
+    </form>
+</div>
